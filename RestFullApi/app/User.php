@@ -33,16 +33,25 @@ class User extends Authenticatable
         'password', 'remember_token', 'verification_token',
     ];
 
+    /**
+     *  function to check is user already verified
+     */
     public function isVerified()
     {
         return $this->verified == User::VERIFIED_USER;
     }
 
+    /**
+     * function to check is user admin or not
+     */
     public function isAdmin()
     {
         return $this->admin == User::ADMIN_USER;
     }
 
+    /**
+     * function to generate verified code
+     */
     public static function generateVerificationCode()
     {
         return str_random(40);
