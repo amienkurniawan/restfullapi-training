@@ -12,7 +12,10 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+
+use App\User;
+
+$factory->define(User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -20,5 +23,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'verified' => $verified = $faker->randomElement([User::VERIFIED_USER, User::UNVERIFIED_USER]),
+        'verification_token' => $verified == User::VERIFIED_USER ? null : User::generateVerificationCode(),
+        'admin' => $verified = $faker->randomElement([User::ADMIN_USER, User::REGULAR_USER])
     ];
 });
