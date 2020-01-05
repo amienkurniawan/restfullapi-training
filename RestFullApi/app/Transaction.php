@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Buyer;
+use App\Product;
 
 class Transaction extends Model
 {
@@ -20,10 +21,11 @@ class Transaction extends Model
     {
         return $this->belongsTo(Buyer::class);
     }
+
     /**
      * function relation transaction one-to-many to product
      */
-    public function product()
+    public function products()
     {
         return $this->belongsTo(Product::class);
     }

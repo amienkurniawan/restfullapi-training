@@ -18,6 +18,7 @@ use App\Product;
 use App\Seller;
 use App\Transaction;
 use App\User;
+use Illuminate\Contracts\Logging\Log;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
     static $password;
@@ -52,7 +53,8 @@ $factory->define(Product::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Transaction::class, function (Faker\generator $faker) {
+
+$factory->define(Transaction::class, function (Faker\Generator $faker) {
     $seller = Seller::has('products')->get()->random();
     $buyer = User::all()->except($seller->id)->random();
 

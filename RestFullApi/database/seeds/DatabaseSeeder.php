@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         User::truncate();
         Category::truncate();
@@ -40,5 +40,7 @@ class DatabaseSeeder extends Seeder
             }
         );
         factory(Transaction::class, $transactionQuantity)->create();
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }
