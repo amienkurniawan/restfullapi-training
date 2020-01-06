@@ -2,10 +2,12 @@
 
 use App\Category;
 use App\Product;
+use App\Seller;
 use App\Transaction;
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DatabaseSeeder extends Seeder
 {
@@ -39,7 +41,19 @@ class DatabaseSeeder extends Seeder
                 $product->categories()->attach($categories);
             }
         );
-        factory(Transaction::class, $transactionQuantity)->create();
+        // factory(Transaction::class, $transactionQuantity)->create();
+        // $seller = Seller::with('products')->get()->random();
+        // $buyer = User::all()->except($seller->id)->random();
+        $seller = Seller::with('products')->get()->random();
+        $buyer = User::all()->except($seller->id)->random();
+        Log::debug($seller);
+        Log::debug($seller->products->random(1)->only('id'));
+        Log::debug($buyer->id);
+        // $transaction = new Transaction;
+        // $transaction->quantity = 1;
+        // $transaction->buyer_id =  $buyer->id;
+        // $transaction->product_id = $seller->products->random()->id;
+        // $transaction->save();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
