@@ -20,7 +20,7 @@ Route::resource('categories', 'Category\CategoryController', ['except' => ['crea
 /**
  * Product
  */
-Route::resource('Product', 'Product\ProductController', ['only' => ['index', 'show']]);
+Route::resource('product', 'Product\ProductController', ['only' => ['index', 'show']]);
 /**
  * Buyer
  */
@@ -32,8 +32,8 @@ Route::resource('sellers', 'Seller\SellerController', ['only' => ['index', 'show
 /**
  * Transaction
  */
-Route::resource('Transactions', 'Transaction\TransactionController', ['only' => ['index', 'show']]);
+Route::resource('transactions', 'Transaction\TransactionController', ['only' => ['index', 'show']]);
 /**
  * User
  */
-Route::resource('Users', 'User\UserController', ['only' => ['index', 'show']]);
+Route::resource('user', 'User\UserController', ['except' => ['create', 'edit']]);
