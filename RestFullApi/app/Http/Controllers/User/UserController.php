@@ -36,9 +36,9 @@ class UserController extends Controller
         $this->validate($request, $rules);
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
-        $data['verified'] = User::UNVERIFIED_USER;
+        $data['verified'] = $request->has('verified') && ($request->verified === true || $request->verified === 1) ? User::VERIFIED_USER : User::UNVERIFIED_USER;
         $data['verification_token'] = User::generateVerificationCode();
-        $data['admin'] = User::REGULAR_USER;
+        $data['admin'] = $request->has('admin') && ($request->admin === true || $request->admin === 1) ? User::ADMIN_USER : User::REGULAR_USER;
         $user = User::create($data);
         return response()->json(['data' => $user], 201);
     }
