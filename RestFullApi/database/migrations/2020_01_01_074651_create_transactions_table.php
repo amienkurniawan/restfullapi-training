@@ -13,6 +13,7 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
+        // Schema::disableForeignKeyConstraints();
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('quantity')->unsigned();
@@ -20,8 +21,9 @@ class CreateTransactionsTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('buyer_id')->references('id')->on('users');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('buyer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            Schema::enableForeignKeyConstraints();
         });
     }
 
@@ -32,6 +34,8 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('transactions');
+        // Schema::enableForeignKeyConstraints();
     }
 }

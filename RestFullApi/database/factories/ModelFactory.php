@@ -55,6 +55,7 @@ $factory->define(Product::class, function (Faker\Generator $faker) {
 
 $factory->define(Transaction::class, function (Faker\Generator $faker) {
     $seller = Seller::with('products')->get()->random();
+    Log::debug($seller);
     $buyer = User::all()->except($seller->id)->random();
     return [
         'quantity' => $faker->numberBetween(1, 3),
