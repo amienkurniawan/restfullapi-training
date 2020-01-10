@@ -13,7 +13,6 @@ class CategoryProductTable extends Migration
      */
     public function up()
     {
-        // 
         Schema::create('category_product', function (Blueprint $table) {
             $table->integer('category_id')->unsigned();
             $table->integer('product_id')->unsigned();
@@ -21,7 +20,7 @@ class CategoryProductTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
-        Schema::enableForeignKeyConstraints();
+        
     }
 
     /**
@@ -31,8 +30,6 @@ class CategoryProductTable extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('category_product');
-        // 
     }
 }
