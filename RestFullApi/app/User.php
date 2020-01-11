@@ -56,4 +56,17 @@ class User extends Authenticatable
     {
         return str_random(40);
     }
+    /**
+     * mutator for name user
+     */
+    public function setNameAttribute($name){
+        $this->attributes['name'] = strtolower($name);
+    }
+
+    /**
+     * accessor for name user
+     */
+    public function getNameAttribute($name){
+        return ucwords($name);
+    }
 }

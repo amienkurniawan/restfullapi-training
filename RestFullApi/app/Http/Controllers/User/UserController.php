@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return response()->json(['data' => $users], 200);
+        return $this->showAll($users,200);
     }
 
     /**
@@ -46,7 +46,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), $rules,$messages);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors(), 'code' => 403], 403);
+            return $this->errorResponse($validator->errors(),  403);
         }
         
         // $this->validate($request, $rules);
@@ -68,7 +68,7 @@ class UserController extends Controller
     public function show($id)
     {
         $users = User::findOrFail($id);
-        return response()->json(['data' => $users], 200);
+        return $this->showOne($users,200);
     }
 
     /**
@@ -113,13 +113,13 @@ class UserController extends Controller
 
         if ($request->has('admin')) {
             if (!$users->isVerified()) {
-                return response()->json(['error' => 'only verified user can modify the admin field', 'code' => 409], 409);
+                return $this->errorResponse('only verified user can modify the admin field', 409);
             }
             $users->admin = $request->admin;
         }
 
         if (!$users->isDirty()) {
-            return response()->json(['error' => 'you need to specify a different value to update', 'code' => 422], 422);
+            return $this->errorResponse('you need to specify a different value to update', 422);
         }
         $users->save();
         return response()->json(['data' => $users], 200);
