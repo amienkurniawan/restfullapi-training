@@ -9,6 +9,12 @@ use App\Traits\ApiResponser;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\QueryException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Tymon\JWTAuth\Http\Parser\QueryString;
 
 class Handler extends ExceptionHandler
 {
@@ -50,24 +56,47 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         // exception for validation
-        if($exception instanceof ValidationException){
-            return $this->convertValidationExceptionToResponse($exception,$request);
+        if ($exception instanceof ValidationException) {
+            return $this->convertValidationExceptionToResponse($exception, $request);
         }
-        
-        // exception fot model not found or data not found
-        if($exception instanceof ModelNotFoundException){
+
+        // exception for model or data not found 
+        if ($exception instanceof ModelNotFoundException) {
             $model = strtolower(class_basename($exception->getModel()));
-            return $this->errorResponse("can find what you looking for in {$model}",404);
+            return $this->errorResponse("can find what you looking for in {$model}", 404);
         }
 
         // exception for unAuthenticated request
-        if($exception instanceof AuthenticationException){
+        if ($exception instanceof AuthenticationException) {
             return $this->unauthenticated($request, $exception);
         }
-        
+
         // exception for unAuthorize request
-        if($exception instanceof AuthorizationException){
-            return $this->errorResponse($exception->getMessage(),403);
+        if ($exception instanceof AuthorizationException) {
+            return $this->errorResponse($exception->getMessage(), 403);
+        }
+
+        //exception for http request 
+        if ($exception instanceof NotFoundHttpException) {
+            return $this->errorResponse("Cant find specified URL", 404);
+        }
+
+        //exception for method request 
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return $this->errorResponse("Invalid Method Request", 405);
+        }
+
+        //exception for Http exception 
+        if ($exception instanceof HttpException) {
+            return $this->errorResponse($exception->getMessage(), $exception->getStatusCode());
+        }
+
+        //exception for Query Violation 
+        if ($exception instanceof QueryException) {
+            $errorCode = $exception->errorInfo[1];
+            if ($errorCode == 1451) {
+                return $this->errorResponse('Cant remove this resource permanently', 409);
+            }
         }
         return parent::render($request, $exception);
     }
@@ -81,7 +110,7 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        return $this->errorResponse('Unauthenticated.',401);
+        return $this->errorResponse('Unauthenticated.', 401);
     }
 
     /**
@@ -90,8 +119,9 @@ class Handler extends ExceptionHandler
      * @param \Illuminate\Http\Request $request
      * @return \Symfony\Component\HttpFoundation\Response 
      */
-    protected function convertValidationExceptionToResponse(ValidationException $e, $request){
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request)
+    {
         $errors = $e->validator->errors()->getMessages();
-        return $this->errorResponse($errors,422);
+        return $this->errorResponse($errors, 422);
     }
 }
