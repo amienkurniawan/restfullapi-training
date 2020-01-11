@@ -8,6 +8,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use App\Traits\ApiResponser;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,13 +49,25 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // exception for validation
         if($exception instanceof ValidationException){
             return $this->convertValidationExceptionToResponse($exception,$request);
         }
+        
+        // exception fot model not found or data not found
         if($exception instanceof ModelNotFoundException){
             $model = strtolower(class_basename($exception->getModel()));
-
             return $this->errorResponse("can find what you looking for in {$model}",404);
+        }
+
+        // exception for unAuthenticated request
+        if($exception instanceof AuthenticationException){
+            return $this->unauthenticated($request, $exception);
+        }
+        
+        // exception for unAuthorize request
+        if($exception instanceof AuthorizationException){
+            return $this->errorResponse($exception->getMessage(),403);
         }
         return parent::render($request, $exception);
     }
@@ -68,11 +81,7 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
-        }
-
-        return redirect()->guest(route('login'));
+        return $this->errorResponse('Unauthenticated.',401);
     }
 
     /**
