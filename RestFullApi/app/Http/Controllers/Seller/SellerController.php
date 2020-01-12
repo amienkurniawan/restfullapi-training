@@ -16,7 +16,7 @@ class SellerController extends Controller
     public function index()
     {
         $sellers = Seller::with('products')->get();
-        return $this->showAll($sellers,200);
+        return $this->showAll($sellers, 200);
     }
 
     /**
@@ -25,10 +25,8 @@ class SellerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Seller $sellers)
     {
-        $sellers = Seller::with('products')->findOrFail($id);
-        return $this->showOne($sellers,200);
+        return $this->showOne($sellers, 200);
     }
-
 }
