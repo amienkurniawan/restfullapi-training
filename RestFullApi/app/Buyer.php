@@ -2,10 +2,16 @@
 
 namespace App;
 
+use App\Scopes\BuyerScopes;
 use App\Transaction;
 
 class Buyer extends User
 {
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new BuyerScopes);
+    }
     /**
      * function relationship buyer one-to-many transaction 
      */
