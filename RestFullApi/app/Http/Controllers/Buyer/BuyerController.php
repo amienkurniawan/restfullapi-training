@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Buyer;
+
 use App\Buyer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -28,8 +29,6 @@ class BuyerController extends Controller
     public function show($id)
     {
         $buyer = Buyer::with('transactions')->findOrFail($id);
-        return $this->showOne($buyer,200);
+        return $this->showOne($buyer, 200);
     }
-
-    
 }

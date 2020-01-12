@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return $this->showAll($users,200);
+        return $this->showAll($users, 200);
     }
 
     /**
@@ -37,18 +37,18 @@ class UserController extends Controller
 
         $messages = [
             'required' => 'The :attribute field is required.',
-            'email'=>'The :attribute filed is need email',
-            'confirmed'=>'The :attribute filed is not same',
-            'unique'=>'The :attribute field is must unique',
-            'min'=>'The :attribute field must have a minimum 6 length'
+            'email' => 'The :attribute filed is need email',
+            'confirmed' => 'The :attribute filed is not same',
+            'unique' => 'The :attribute field is must unique',
+            'min' => 'The :attribute field must have a minimum 6 length'
         ];
 
-        $validator = Validator::make($request->all(), $rules,$messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(),  403);
         }
-        
+
         // $this->validate($request, $rules);
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
@@ -68,7 +68,7 @@ class UserController extends Controller
     public function show($id)
     {
         $users = User::findOrFail($id);
-        return $this->showOne($users,200);
+        return $this->showOne($users, 200);
     }
 
     /**
@@ -78,24 +78,29 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $users)
     {
-        $users = User::findOrFail($id);
+        Log::debug($request->all());
+        Log::info($users->id);
         $rules = [
             'email' => 'email|unique:users,email,' . $users->id,
             'password' => 'min:6|confirmed',
-            'admin' => 'in:' . User::ADMIN_USER . '.' . User::REGULAR_USER,
+            // 'admin' => 'in:' . User::ADMIN_USER . '.' . User::REGULAR_USER,
         ];
 
         $messages = [
-            'email'=>'The :attribute filed is need email',
-            'confirmed'=>'The :attribute filed is not same',
-            'unique'=>'The :attribute field is must unique',
-            'min'=>'The :attribute field must have a minimum 6 length',
-            'in'=>'The :attribute must be one of the following types: '. User::ADMIN_USER . ':' . User::REGULAR_USER,
+            'email' => 'The :attribute filed is need email',
+            'confirmed' => 'The :attribute filed is not same',
+            'unique' => 'The :attribute field is must unique',
+            'min' => 'The :attribute field must have a minimum 6 length',
+            // 'in' => 'The :attribute must be one of the following types: ' . User::ADMIN_USER . ' : ' . User::REGULAR_USER,
         ];
 
-        $validator = Validator::make($request->all(), $rules,$messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->errors(),  403);
+        }
 
         if ($request->has('name')) {
             $users->name = $request->name;
@@ -131,9 +136,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $users)
     {
-        $users = User::findOrFail($id);
+        Log::debug($users);
         $users->delete();
         return response()->json(['data' => $users], 200);
     }
