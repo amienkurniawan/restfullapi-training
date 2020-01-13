@@ -2,18 +2,21 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     const VERIFIED_USER = '1';
     const UNVERIFIED_USER = '0';
 
     const ADMIN_USER = 'true';
     const REGULAR_USER = 'false';
+
+    protected $dates = ['deleted_at'];
     protected $table  = 'users';
     /**
      * The attributes that are mass assignable.
@@ -21,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'verified', 'verification_token', 'admin',
+        'name', 'email', 'password', 'verified', 'verification_token', 'admin', 'deleted_at'
     ];
 
     /**
@@ -59,14 +62,16 @@ class User extends Authenticatable
     /**
      * mutator for name user
      */
-    public function setNameAttribute($name){
+    public function setNameAttribute($name)
+    {
         $this->attributes['name'] = strtolower($name);
     }
 
     /**
      * accessor for name user
      */
-    public function getNameAttribute($name){
+    public function getNameAttribute($name)
+    {
         return ucwords($name);
     }
 }

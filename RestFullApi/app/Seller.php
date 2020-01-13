@@ -4,9 +4,12 @@ namespace App;
 
 use App\Product;
 use App\Scopes\SellerScopes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Seller extends User
 {
+
+
     protected static function boot()
     {
         parent::boot();
