@@ -45,7 +45,7 @@ class CategoryController extends Controller
 
         $newCategory = Category::create($request->all());
 
-        return response()->json(['data' => $newCategory], 201);
+        return $this->showOne($newCategory, 201);
     }
 
     /**
@@ -68,7 +68,27 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $rules = [
+            'name' => 'required',
+            'description' => 'required',
+        ];
+
+        $messages = [
+            'required' => 'The :attribute field is required.'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->errors(),  403);
+        }
+
+        $category->fill($request->intersect(['name', 'description']));
+        if ($category->isClean()) {
+            return $this->errorResponse('you need specify diffrent value', 422);
+        }
+        $category->save();
+        return $this->showOne($category, 201);
     }
 
     /**
@@ -79,6 +99,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return $this->showOne($category);
     }
 }
