@@ -25,6 +25,7 @@ Route::resource('product', 'Product\ProductController', ['only' => ['index', 'sh
  * Buyer
  */
 Route::resource('buyers', 'Buyer\BuyerController', ['only' => ['index', 'show']]);
+Route::resource('buyers.transaction', 'Buyer\BuyerTransactionController', ['only' => ['index']]);
 /**
  * Seller
  */
@@ -34,6 +35,7 @@ Route::resource('sellers', 'Seller\SellerController', ['only' => ['index', 'show
  */
 Route::resource('transactions', 'Transaction\TransactionController', ['only' => ['index', 'show']]);
 Route::resource('transactions.category', 'Transaction\TransactionCategoryController', ['only' => ['index']]);
+Route::resource('transactions.seller', 'Transaction\TransactionSellerController', ['only' => ['index']]);
 /**
  * User
  */

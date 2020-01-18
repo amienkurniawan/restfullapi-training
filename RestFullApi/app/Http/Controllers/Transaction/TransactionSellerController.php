@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Transaction;
 use App\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Product;
 use Illuminate\Contracts\Logging\Log;
+use Illuminate\Database\Eloquent\Collection;
 
-class TransactionCategoryController extends Controller
+class TransactionSellerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,6 +17,6 @@ class TransactionCategoryController extends Controller
      */
     public function index(Transaction $transaction)
     {
-        return $this->showAll($transaction->products->categories);
+        return $this->showOne($transaction->products->seller);
     }
 }
