@@ -6,7 +6,7 @@ use App\Buyer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class BuyerProductController extends Controller
+class BuyerSellerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,11 @@ class BuyerProductController extends Controller
      */
     public function index(Buyer $buyer)
     {
-        $product = $buyer->transactions()->with('products')->get()->pluck('products');
-        return $this->showAll($product);
+        $seller = $buyer->transactions()->with('products.seller')
+            ->get()
+            ->pluck('products.seller')
+            ->unique('id')
+            ->values()->pluck('products');
+        return $this->showAll($seller);
     }
 }
