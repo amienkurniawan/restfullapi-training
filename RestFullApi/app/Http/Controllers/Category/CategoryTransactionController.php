@@ -15,7 +15,7 @@ class CategoryTransactionController extends Controller
      */
     public function index(Category $category)
     {
-        $transaction = $category->products()->with('transactions')->get()->pluck('transactions')->collapse();
+        $transaction = $category->products()->whereHas('transactions')->with('transactions')->get()->pluck('transactions')->collapse();
         return $this->showAll($transaction);
     }
 }
