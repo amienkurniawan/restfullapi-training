@@ -19,7 +19,8 @@ class BuyerSellerController extends Controller
             ->get()
             ->pluck('products.seller')
             ->unique('id')
-            ->values()->pluck('products');
+            ->values()
+            ->pluck('products');
         return $this->showAll($seller);
     }
 }
