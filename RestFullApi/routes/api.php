@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 /**
  * Categories
  */
+Route::resource('categories.product', 'Category\CategoryProductController', ['only' => ['index']]);
+Route::resource('categories.seller', 'Category\CategorySellerController', ['only' => ['index']]);
 Route::resource('categories', 'Category\CategoryController', ['except' => ['create', 'edit']]);
 /**
  * Product
