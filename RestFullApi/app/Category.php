@@ -14,6 +14,7 @@ class Category extends Model
         'name',
         'description',
     ];
+    protected $hidden = ['pivot'];
     /**
      * function relationship category many-to-many to product
      */
