@@ -6,8 +6,7 @@ use App\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
-use Illuminate\Foundation\Testing\HttpException;
-use Symfony\Component\HttpKernel\Exception\HttpException as ExceptionHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SellerProductController extends Controller
 {
@@ -94,9 +93,11 @@ class SellerProductController extends Controller
      * @param  \App\Seller  $seller
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Seller $seller)
+    public function destroy(Seller $seller, Product $product)
     {
-        //
+        $this->checkSeller($seller, $product);
+        $product->delete();
+        return $this->showOne($product);
     }
     /**
      * to check if this product owned by seller
