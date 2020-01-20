@@ -24,6 +24,7 @@ Route::resource('categories', 'Category\CategoryController', ['except' => ['crea
  * Product
  */
 Route::resource('product', 'Product\ProductController', ['only' => ['index', 'show']]);
+Route::resource('product.transaction', 'Product\ProductTransactionController', ['only' => ['index']]);
 /**
  * Buyer
  */
