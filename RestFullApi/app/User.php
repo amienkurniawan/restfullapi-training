@@ -15,7 +15,7 @@ class User extends Authenticatable
 
     const ADMIN_USER = 'true';
     const REGULAR_USER = 'false';
-    protected $primaryKey = 'id';
+
     protected $dates = ['deleted_at'];
     protected $table  = 'users';
     /**
