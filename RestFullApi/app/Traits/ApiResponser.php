@@ -2,8 +2,10 @@
 
 namespace App\Traits;
 
+use App\Mail\UserCreated;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
 trait ApiResponser
 {

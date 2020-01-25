@@ -4,8 +4,10 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\UserCreated;
 use App\User;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 
 class UserController extends Controller
@@ -78,12 +80,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $users)
+    public function update(Request $request, User $user)
     {
-        Log::debug($request->all());
-        Log::info($users->id);
         $rules = [
-            'email' => 'email|unique:users,email,' . $users->id,
+            'email' => 'email|unique:users,email,' . $user->id,
             'password' => 'min:6|confirmed',
             // 'admin' => 'in:' . User::ADMIN_USER . '.' . User::REGULAR_USER,
         ];
@@ -103,31 +103,32 @@ class UserController extends Controller
         }
 
         if ($request->has('name')) {
-            $users->name = $request->name;
+            $user->name = $request->name;
         }
 
-        if ($request->has('email') && $users->email !== $request->email) {
-            $users->verified = User::UNVERIFIED_USER;
-            $users->verification_token = User::generateVerificationCode();
-            $users->email = $request->email;
+        if ($request->has('email') && $user->email !== $request->email) {
+            $user->verified = User::UNVERIFIED_USER;
+            $user->verification_token = User::generateVerificationCode();
+            $user->email = $request->email;
         }
 
         if ($request->has('password')) {
-            $users->password = bcrypt($request->password);
+            $user->password = bcrypt($request->password);
         }
 
         if ($request->has('admin')) {
-            if (!$users->isVerified()) {
+            if (!$user->isVerified()) {
                 return $this->errorResponse('only verified user can modify the admin field', 409);
             }
-            $users->admin = $request->admin;
+            $user->admin = $request->admin;
         }
 
-        if (!$users->isDirty()) {
+        if (!$user->isDirty()) {
             return $this->errorResponse('you need to specify a different value to update', 422);
         }
-        $users->save();
-        return response()->json(['data' => $users], 200);
+
+        $user->save();
+        return response()->json(['data' => $user], 200);
     }
 
     /**
@@ -146,7 +147,7 @@ class UserController extends Controller
     /**
      * function to verified user 
      * 
-     * @param string $tokent
+     * @param string $token
      * @return \Illuminate\Http\Response
      */
     public function verify($token)
@@ -158,5 +159,19 @@ class UserController extends Controller
         $user->save();
 
         return $this->showMessage('the account has been verirified successfully');
+    }
+    /**
+     * function to resend verification email
+     * 
+     */
+    public function resend(User $user)
+    {
+        if ($user->isVerified()) {
+            return $this->showMessage('User Already verified');
+        }
+
+        Mail::to($user->email)->send(new UserCreated($user));
+
+        return $this->showMessage('Verification email has been Resend');
     }
 }
