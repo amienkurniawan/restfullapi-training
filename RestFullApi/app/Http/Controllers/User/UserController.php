@@ -142,4 +142,21 @@ class UserController extends Controller
         $users->delete();
         return response()->json(['data' => $users], 200);
     }
+
+    /**
+     * function to verified user 
+     * 
+     * @param string $tokent
+     * @return \Illuminate\Http\Response
+     */
+    public function verify($token)
+    {
+        $user = User::where('verification_token', $token)->firstOrFail();
+
+        $user->verified = User::VERIFIED_USER;
+        $user->verification_token = null;
+        $user->save();
+
+        return $this->showMessage('the account has been verirified successfully');
+    }
 }
