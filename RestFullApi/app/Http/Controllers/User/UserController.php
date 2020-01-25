@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace RestFullAPIAmien\Http\Controllers\User;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Mail\UserCreated;
-use App\User;
+use RestFullAPIAmien\Http\Controllers\Controller;
+use RestFullAPIAmien\Mail\UserCreated;
+use RestFullAPIAmien\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Validator;
@@ -169,8 +169,9 @@ class UserController extends Controller
         if ($user->isVerified()) {
             return $this->showMessage('User Already verified');
         }
-
-        Mail::to($user->email)->send(new UserCreated($user));
+        retry(5, function () use ($user) {
+            Mail::to($user->email)->send(new UserCreated($user));
+        }, 1000);
 
         return $this->showMessage('Verification email has been Resend');
     }

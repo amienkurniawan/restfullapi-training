@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Product;
+namespace RestFullAPIAmien\Http\Controllers\Product;
 
-use App\Product;
+use RestFullAPIAmien\Product;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Transaction;
-use App\User;
+use RestFullAPIAmien\Http\Controllers\Controller;
+use RestFullAPIAmien\Transaction;
+use RestFullAPIAmien\User;
 use Illuminate\Support\Facades\DB;
 use Validator;
 

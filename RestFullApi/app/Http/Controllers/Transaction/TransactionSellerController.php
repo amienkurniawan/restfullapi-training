@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Transaction;
+namespace RestFullAPIAmien\Http\Controllers\Transaction;
 
-use App\Transaction;
+use RestFullAPIAmien\Transaction;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use RestFullAPIAmien\Http\Controllers\Controller;
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Database\Eloquent\Collection;
 

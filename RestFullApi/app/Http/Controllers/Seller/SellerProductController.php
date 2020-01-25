@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Seller;
+namespace RestFullAPIAmien\Http\Controllers\Seller;
 
-use App\Seller;
+use RestFullAPIAmien\Seller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Product;
+use RestFullAPIAmien\Http\Controllers\Controller;
+use RestFullAPIAmien\Product;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -53,7 +53,7 @@ class SellerProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Seller  $seller
+     * @param  \RestFullAPIAmien\Seller  $seller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Seller $seller, Product $product)
@@ -96,7 +96,7 @@ class SellerProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Seller  $seller
+     * @param  \RestFullAPIAmien\Seller  $seller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Seller $seller, Product $product)
@@ -108,8 +108,8 @@ class SellerProductController extends Controller
     }
     /**
      * to check if this product owned by seller
-     * @param \App\Seller $seller
-     * @param \App\Product $product
+     * @param \RestFullAPIAmien\Seller $seller
+     * @param \RestFullAPIAmien\Product $product
      * @return \Illuminate\Http\Response
      */
     protected function checkSeller($seller, $product)

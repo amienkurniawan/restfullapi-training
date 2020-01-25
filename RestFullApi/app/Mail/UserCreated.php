@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Mail;
+namespace RestFullAPIAmien\Mail;
 
-use App\User;
+use RestFullAPIAmien\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -29,6 +29,6 @@ class UserCreated extends Mailable
      */
     public function build()
     {
-        return $this->text('mails.welcome');
+        return $this->markdown('mails.welcome')->subject('Verification for Email Account');
     }
 }

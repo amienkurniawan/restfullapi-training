@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Transaction;
+namespace RestFullAPIAmien\Http\Controllers\Transaction;
 
-use App\Transaction;
+use RestFullAPIAmien\Transaction;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Product;
+use RestFullAPIAmien\Http\Controllers\Controller;
+use RestFullAPIAmien\Product;
 use Illuminate\Contracts\Logging\Log;
 
 class TransactionCategoryController extends Controller

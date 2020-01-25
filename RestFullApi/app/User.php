@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace RestFullAPIAmien;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;

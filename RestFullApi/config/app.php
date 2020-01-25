@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'RestFullAPIAmien'),
 
     /*
     |--------------------------------------------------------------------------
@@ -172,11 +172,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        RestFullAPIAmien\Providers\AppServiceProvider::class,
+        RestFullAPIAmien\Providers\AuthServiceProvider::class,
+        // RestFullAPIAmien\Providers\BroadcastServiceProvider::class,
+        RestFullAPIAmien\Providers\EventServiceProvider::class,
+        RestFullAPIAmien\Providers\RouteServiceProvider::class,
 
     ],
 

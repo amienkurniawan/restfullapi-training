@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Mail;
+namespace RestFullAPIAmien\Mail;
 
-use App\User;
+use RestFullAPIAmien\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -29,6 +29,6 @@ class UserMailChanged extends Mailable
      */
     public function build()
     {
-        return $this->text('mails.UserMailChange')->subject('Email Verification for Change Email Account');
+        return $this->markdown('mails.UserMailChange')->subject('Email Verification for Change Email Account');
     }
 }

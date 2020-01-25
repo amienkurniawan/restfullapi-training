@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Transaction;
+namespace RestFullAPIAmien\Http\Controllers\Transaction;
 
-use App\Transaction;
+use RestFullAPIAmien\Transaction;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use RestFullAPIAmien\Http\Controllers\Controller;
 
 class TransactionController extends Controller
 {
@@ -22,7 +22,7 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Transaction  $transaction
+     * @param  \RestFullAPIAmien\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
     public function show(Transaction $transaction)

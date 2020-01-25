@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Product;
+namespace RestFullAPIAmien\Http\Controllers\Product;
 
-use App\Category;
-use App\Product;
+use RestFullAPIAmien\Category;
+use RestFullAPIAmien\Product;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use RestFullAPIAmien\Http\Controllers\Controller;
 
 class ProductCategoryController extends Controller
 {
@@ -24,7 +24,7 @@ class ProductCategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  \RestFullAPIAmien\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Product $product, Category $category)
@@ -41,7 +41,7 @@ class ProductCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param  \RestFullAPIAmien\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product, Category $category)
