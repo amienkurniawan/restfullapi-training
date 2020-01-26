@@ -1,10 +1,10 @@
 <?php
 
-namespace RestFullAPIAmien\Http\Controllers\Category;
+namespace App\Http\Controllers\Category;
 
-use RestFullAPIAmien\Category;
+use App\Category;
 use Illuminate\Http\Request;
-use RestFullAPIAmien\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Validator;
 
 class CategoryController extends Controller
@@ -51,7 +51,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \RestFullAPIAmien\Category  $category
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
@@ -63,7 +63,7 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \RestFullAPIAmien\Category  $category
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Category $category)
@@ -94,7 +94,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \RestFullAPIAmien\Category  $category
+     * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)

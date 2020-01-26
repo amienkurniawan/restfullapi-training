@@ -1,10 +1,10 @@
 <?php
 
-namespace RestFullAPIAmien\Http\Controllers\Product;
+namespace App\Http\Controllers\Product;
 
-use RestFullAPIAmien\Product;
+use App\Product;
 use Illuminate\Http\Request;
-use RestFullAPIAmien\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
@@ -22,7 +22,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \RestFullAPIAmien\Product  $product
+     * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)

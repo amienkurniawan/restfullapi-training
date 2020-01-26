@@ -1,10 +1,10 @@
 <?php
 
-namespace RestFullAPIAmien\Http\Controllers\Seller;
+namespace App\Http\Controllers\Seller;
 
 use Illuminate\Http\Request;
-use RestFullAPIAmien\Http\Controllers\Controller;
-use RestFullAPIAmien\Seller;
+use App\Http\Controllers\Controller;
+use App\Seller;
 
 class SellerController extends Controller
 {

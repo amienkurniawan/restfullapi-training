@@ -172,11 +172,11 @@ return [
         /*
          * Application Service Providers...
          */
-        RestFullAPIAmien\Providers\AppServiceProvider::class,
-        RestFullAPIAmien\Providers\AuthServiceProvider::class,
-        // RestFullAPIAmien\Providers\BroadcastServiceProvider::class,
-        RestFullAPIAmien\Providers\EventServiceProvider::class,
-        RestFullAPIAmien\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
 
     ],
 

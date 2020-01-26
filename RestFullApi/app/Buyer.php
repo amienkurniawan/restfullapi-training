@@ -1,9 +1,9 @@
 <?php
 
-namespace RestFullAPIAmien;
+namespace App;
 
-use RestFullAPIAmien\Scopes\BuyerScopes;
-use RestFullAPIAmien\Transaction;
+use App\Scopes\BuyerScopes;
+use App\Transaction;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Buyer extends User

@@ -13,11 +13,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use RestFullAPIAmien\Category;
-use RestFullAPIAmien\Product;
-use RestFullAPIAmien\Seller;
-use RestFullAPIAmien\Transaction;
-use RestFullAPIAmien\User;
+use App\Category;
+use App\Product;
+use App\Seller;
+use App\Transaction;
+use App\User;
 use Illuminate\Support\Facades\Log;
 
 $factory->define(User::class, function (Faker\Generator $faker) {

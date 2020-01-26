@@ -1,11 +1,11 @@
 <?php
 
-namespace RestFullAPIAmien\Http\Controllers\User;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
-use RestFullAPIAmien\Http\Controllers\Controller;
-use RestFullAPIAmien\Mail\UserCreated;
-use RestFullAPIAmien\User;
+use App\Http\Controllers\Controller;
+use App\Mail\UserCreated;
+use App\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Validator;

@@ -1,8 +1,8 @@
 <?php
 
-namespace RestFullAPIAmien\Traits;
+namespace App\Traits;
 
-use RestFullAPIAmien\Mail\UserCreated;
+use App\Mail\UserCreated;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;

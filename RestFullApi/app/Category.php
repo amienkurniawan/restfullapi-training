@@ -1,9 +1,9 @@
 <?php
 
-namespace RestFullAPIAmien;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use RestFullAPIAmien\Product;
+use App\Product;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model

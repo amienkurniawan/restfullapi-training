@@ -1,10 +1,10 @@
 <?php
 
-namespace RestFullAPIAmien;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use RestFullAPIAmien\Buyer;
-use RestFullAPIAmien\Product;
+use App\Buyer;
+use App\Product;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model

@@ -1,11 +1,11 @@
 <?php
 
-namespace RestFullAPIAmien\Providers;
+namespace App\Providers;
 
-use RestFullAPIAmien\Mail\UserCreated;
-use RestFullAPIAmien\Mail\UserMailChanged;
-use RestFullAPIAmien\Product;
-use RestFullAPIAmien\User;
+use App\Mail\UserCreated;
+use App\Mail\UserMailChanged;
+use App\Product;
+use App\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;

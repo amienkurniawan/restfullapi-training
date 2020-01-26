@@ -1,8 +1,8 @@
 <?php
 
-namespace RestFullAPIAmien\Mail;
+namespace App\Mail;
 
-use RestFullAPIAmien\User;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
