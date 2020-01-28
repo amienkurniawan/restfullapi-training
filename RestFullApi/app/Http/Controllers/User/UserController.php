@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Mail\UserCreated;
 use App\User;
 use Illuminate\Support\Facades\Log;
@@ -20,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return $this->showAll($users, 200);
+        return UserResource::collection($users);
     }
 
     /**
@@ -69,8 +70,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $users = User::findOrFail($id);
-        return $this->showOne($users, 200);
+
+        return new UserResource(User::findOrFail($id));
     }
 
     /**

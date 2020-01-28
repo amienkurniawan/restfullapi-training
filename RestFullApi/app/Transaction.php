@@ -5,11 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Buyer;
 use App\Product;
+use App\Transformers\transactionTransformer;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
     use SoftDeletes;
+
+    public $transaction = new transactionTransformer();
 
     protected $dates = ['deleted_at'];
     protected $fillable = [
