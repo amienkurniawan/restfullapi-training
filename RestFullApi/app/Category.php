@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
     use SoftDeletes;
-    public $category = new categoryTransformer();
+
 
     protected $dates = ['deleted_at'];
     protected $fillable = [

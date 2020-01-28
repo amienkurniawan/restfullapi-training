@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Seller;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SellerResource;
 use App\Seller;
 
 class SellerController extends Controller
@@ -16,7 +17,7 @@ class SellerController extends Controller
     public function index()
     {
         $sellers = Seller::with('products')->get();
-        return $this->showAll($sellers, 200);
+        return SellerResource::collection($sellers);
     }
 
     /**
@@ -27,6 +28,6 @@ class SellerController extends Controller
      */
     public function show(Seller $sellers)
     {
-        return $this->showOne($sellers, 200);
+        return new SellerResource($sellers);
     }
 }

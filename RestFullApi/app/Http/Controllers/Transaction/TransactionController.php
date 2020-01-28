@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Transaction;
 use App\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TransactionResource;
 
 class TransactionController extends Controller
 {
@@ -16,7 +17,7 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = Transaction::all();
-        return $this->showAll($transactions);
+        return TransactionResource::collection($transactions);
     }
 
     /**
@@ -27,6 +28,6 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        return $this->showOne($transaction);
+        return new TransactionResource($transaction);
     }
 }

@@ -6,6 +6,7 @@ use App\Buyer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BuyerResource;
 
 class BuyerController extends Controller
 {
@@ -17,7 +18,7 @@ class BuyerController extends Controller
     public function index()
     {
         $buyer = Buyer::with('transactions')->get();
-        return $this->showAll($buyer, 200);
+        return BuyerResource::collection($buyer);
     }
 
     /**
@@ -29,6 +30,6 @@ class BuyerController extends Controller
     public function show(Buyer $buyer)
     {
         // $buyer = Buyer::with('transactions')->findOrFail($id);
-        return $this->showOne($buyer, 200);
+        return new BuyerResource($buyer);
     }
 }

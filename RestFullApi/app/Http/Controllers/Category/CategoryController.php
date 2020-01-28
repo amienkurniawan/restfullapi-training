@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Category;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
 use Validator;
 
 class CategoryController extends Controller
@@ -17,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return $this->showAll($categories);
+        return CategoryResource::collection($categories);
     }
 
     /**
@@ -56,7 +57,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return $this->showOne($category);
+        return new CategoryResource($category);
     }
 
     /**

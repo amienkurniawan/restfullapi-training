@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Seller extends User
 {
 
-    public $seller = new sellerTransformer();
 
     protected static function boot()
     {
