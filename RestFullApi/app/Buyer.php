@@ -4,7 +4,6 @@ namespace App;
 
 use App\Scopes\BuyerScopes;
 use App\Transaction;
-use App\Transformers\buyerTransformer;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Buyer extends User

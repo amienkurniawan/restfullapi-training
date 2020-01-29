@@ -17,6 +17,7 @@ class TransactionSellerController extends Controller
      */
     public function index(Transaction $transaction)
     {
+        // Log::debug($transaction);
         return $this->showOne($transaction->products->seller);
     }
 }

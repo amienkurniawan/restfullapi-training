@@ -13,7 +13,6 @@ class Product extends Model
 {
     use SoftDeletes;
 
-    public $product = productTransformer::class;
 
     const AVAILABLE_PRODUCT = 'available';
     const UNAVAILABLE_PRODUCT = 'unavailable';

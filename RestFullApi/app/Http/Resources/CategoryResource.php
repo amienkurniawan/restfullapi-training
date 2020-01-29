@@ -18,8 +18,8 @@ class CategoryResource extends Resource
             'identifier' => $this->id,
             'title' => $this->name,
             'details' => $this->description,
-            'creationDate' => $this->created_at,
-            'lastChange' => $this->updated_at,
+            'creationDate' => (string) $this->created_at,
+            'lastChange' => (string) $this->updated_at,
             'deletedDate' => isset($this->deleted_at) ? $this->deleted_at : null,
         ];
     }

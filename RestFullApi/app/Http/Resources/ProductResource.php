@@ -20,11 +20,11 @@ class ProductResource extends Resource
             'details' => $this->description,
             'stock' =>  $this->quantity,
             'situation' => $this->status,
-            'picture' => url(`img/{$this->image}`),
+            'picture' => url("img/{$this->image}"),
             'situation' => $this->status,
             'seller' =>  $this->seller_id,
-            'creationDate' => $this->created_at,
-            'lastChange' => $this->updated_at,
+            'creationDate' => (string) $this->created_at,
+            'lastChange' => (string) $this->updated_at,
             'deletedDate' => isset($this->deleted_at) ? $this->deleted_at : null,
         ];
     }
