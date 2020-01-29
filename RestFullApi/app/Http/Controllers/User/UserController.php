@@ -21,6 +21,10 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+        if (request()->has('sort_by')) {
+            $attribute = UserResource::originalAttribute(request()->sort_by);
+            $users = $users->sortBy->{$attribute};
+        }
         return UserResource::collection($users);
     }
 

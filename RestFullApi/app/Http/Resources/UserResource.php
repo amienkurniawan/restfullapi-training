@@ -27,4 +27,19 @@ class UserResource extends Resource
 
             ];
     }
+
+    public static function originalAttribute($index)
+    {
+        $attribute = [
+            'identifier' =>  'id',
+            'name' => 'name',
+            'email' => 'email',
+            'isVerified' =>  'verified',
+            'isAdmin' => 'admin',
+            'creationDate' => 'created_at',
+            'lastChange' => 'updated_at',
+            'deletedDate' => 'deleted_at',
+        ];
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
 }
