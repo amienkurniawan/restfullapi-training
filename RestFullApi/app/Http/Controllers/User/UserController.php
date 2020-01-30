@@ -21,11 +21,22 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+        foreach (request()->query() as $query => $value) {
+            $attribute = UserResource::originalAttribute($query);
+            Log::debug($attribute);
+            Log::debug($users);
+            if (isset($attribute, $value)) {
+                $users = $users->where($attribute, $value);
+            }
+        }
         if (request()->has('sort_by')) {
             $attribute = UserResource::originalAttribute(request()->sort_by);
             $users = $users->sortBy->{$attribute};
         }
-        return UserResource::collection($users);
+        Log::debug($users);
+        Log::debug(request()->query());
+
+        return UserResource::collection($users)->values();
     }
 
     /**
@@ -74,7 +85,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-
         return new UserResource(User::findOrFail($id));
     }
 

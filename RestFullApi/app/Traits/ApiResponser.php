@@ -5,7 +5,9 @@ namespace App\Traits;
 use App\Mail\UserCreated;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Response;
 
 trait ApiResponser
 {
@@ -49,5 +51,25 @@ trait ApiResponser
     protected function showMessage($message, $code = 200)
     {
         return $this->successResponse(['data' => $message], $code);
+    }
+
+    /**
+     * function to return resource 
+     */
+    protected function returnResource($instance, $data)
+    {
+
+        if (request()->has('sort_by')) {
+            $attribute = $instance::originalAttribute(request()->sort_by);
+            $data = $data->sortBy->{$attribute};
+        }
+
+        foreach (request()->query() as $query => $value) {
+            $attribute = $instance::originalAttribute($query);
+            if (isset($attribute, $value)) {
+                $data = $data->where($attribute, $value);
+            }
+        }
+        return $instance::collection($data);
     }
 }
