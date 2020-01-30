@@ -24,4 +24,17 @@ class TransactionResource extends Resource
             'deletedDate' => isset($this->deleted_at) ? $this->deleted_at : null,
         ];
     }
+    public static function originalAttribute($index)
+    {
+        $attribute = [
+            'identifier' =>  'id',
+            'quantity' =>  'quantity',
+            'buyer' =>  'buyer_id',
+            'product' =>  'product_id',
+            'creationDate' =>  'created_at',
+            'lastChange' =>  'updated_at',
+            'deletedDate' => 'deleted_at',
+        ];
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
 }

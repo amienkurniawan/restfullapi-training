@@ -17,7 +17,17 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = Transaction::all();
-        return TransactionResource::collection($transactions);
+        foreach (request()->query() as $query => $value) {
+            $attribute = TransactionResource::originalAttribute($query);
+            if (isset($attribute, $value)) {
+                $transactions = $transactions->where($attribute, $value);
+            }
+        }
+        if (request()->has('sort_by')) {
+            $attribute = TransactionResource::originalAttribute(request()->sort_by);
+            $transactions = $transactions->sortBy->{$attribute};
+        }
+        return TransactionResource::collection($transactions)->values();
     }
 
     /**
