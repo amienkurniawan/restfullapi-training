@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SellerResource;
+use App\Scopes\SellerScopes;
 use App\Seller;
 
 class SellerController extends Controller
@@ -17,7 +18,17 @@ class SellerController extends Controller
     public function index()
     {
         $sellers = Seller::with('products')->get();
-        return SellerResource::collection($sellers);
+        foreach (request()->query() as $query => $value) {
+            $attribute = SellerResource::originalAttribute($query);
+            if (isset($attribute, $value)) {
+                $sellers = $sellers->where($attribute, $value);
+            }
+        }
+        if (request()->has('sort_by')) {
+            $attribute = SellerResource::originalAttribute(request()->sort_by);
+            $sellers = $sellers->sortBy->{$attribute};
+        }
+        return SellerResource::collection($sellers)->values();
     }
 
     /**

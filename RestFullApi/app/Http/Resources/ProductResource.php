@@ -21,11 +21,26 @@ class ProductResource extends Resource
             'stock' =>  $this->quantity,
             'situation' => $this->status,
             'picture' => url("img/{$this->image}"),
-            'situation' => $this->status,
             'seller' =>  $this->seller_id,
             'creationDate' => (string) $this->created_at,
             'lastChange' => (string) $this->updated_at,
             'deletedDate' => isset($this->deleted_at) ? $this->deleted_at : null,
         ];
+    }
+    public static function originalAttribute($index)
+    {
+        $attribute = [
+            'identifier' => 'id',
+            'title' => 'name',
+            'details' => 'description',
+            'stock' =>  'quantity',
+            'situation' => 'status',
+            'picture' => 'image',
+            'seller' =>  'seller_id',
+            'creationDate' => 'created_at',
+            'lastChange' => 'updated_at',
+            'deletedDate' => 'deleted_at',
+        ];
+        return isset($attribute[$index]) ? $attribute[$index] : null;
     }
 }

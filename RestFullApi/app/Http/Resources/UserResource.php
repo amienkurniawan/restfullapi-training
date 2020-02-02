@@ -20,7 +20,7 @@ class UserResource extends Resource
                 'name' => $this->name,
                 'email' => $this->email,
                 'isVerified' =>  $this->verified,
-                'isAdmin' => ($this->admin === true),
+                'isAdmin' => ($this->admin === "true"),
                 'creationDate' => (string) $this->created_at,
                 'lastChange' => (string) $this->updated_at,
                 'deletedDate' => isset($this->deleted_at) ? $this->deleted_at : null,

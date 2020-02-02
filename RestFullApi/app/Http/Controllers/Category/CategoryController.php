@@ -18,7 +18,17 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return CategoryResource::collection($categories);
+        foreach (request()->query() as $query => $value) {
+            $attribute = CategoryResource::originalAttribute($query);
+            if (isset($attribute, $value)) {
+                $categories = $categories->where($attribute, $value);
+            }
+        }
+        if (request()->has('sort_by')) {
+            $attribute = CategoryResource::originalAttribute(request()->sort_by);
+            $categories = $categories->sortBy($attribute);
+        }
+        return CategoryResource::collection($categories)->values();
     }
 
     /**

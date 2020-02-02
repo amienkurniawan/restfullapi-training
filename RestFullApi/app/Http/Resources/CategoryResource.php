@@ -23,4 +23,16 @@ class CategoryResource extends Resource
             'deletedDate' => isset($this->deleted_at) ? $this->deleted_at : null,
         ];
     }
+    public static function originalAttribute($index)
+    {
+        $attribute = [
+            'identifier' => 'id',
+            'title' => 'name',
+            'details' => 'description',
+            'creationDate' =>  'created_at',
+            'lastChange' => 'updated_at',
+            'deletedDate' => 'deleted_at',
+        ];
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
 }

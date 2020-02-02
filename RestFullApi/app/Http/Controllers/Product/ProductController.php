@@ -17,7 +17,17 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return ProductResource::collection($products);
+        foreach (request()->query() as $query => $value) {
+            $attribute = ProductResource::originalAttribute($query);
+            if (isset($attribute, $value)) {
+                $products = $products->where($attribute, $value);
+            }
+        }
+        if (request()->has('sort_by')) {
+            $attribute = ProductResource::originalAttribute(request()->sort_by);
+            $products = $products->sortBy->{$attribute};
+        }
+        return ProductResource::collection($products)->values();
     }
 
     /**

@@ -18,7 +18,17 @@ class BuyerController extends Controller
     public function index()
     {
         $buyer = Buyer::with('transactions')->get();
-        return BuyerResource::collection($buyer);
+        foreach (request()->query() as $query => $value) {
+            $attribute = BuyerResource::originalAttribute($query);
+            if (isset($attribute, $value)) {
+                $buyer = $buyer->where($attribute, $value);
+            }
+        }
+        if (request()->has('sort_by')) {
+            $attribute = BuyerResource::originalAttribute(request()->sort_by);
+            $buyer = $buyer->sortBy($attribute);
+        }
+        return BuyerResource::collection($buyer)->values();
     }
 
     /**
