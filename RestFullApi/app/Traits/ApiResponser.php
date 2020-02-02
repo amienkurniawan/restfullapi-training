@@ -6,6 +6,7 @@ use App\Mail\UserCreated;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Response;
 
@@ -52,24 +53,16 @@ trait ApiResponser
     {
         return $this->successResponse(['data' => $message], $code);
     }
-
-    /**
-     * function to return resource 
-     */
-    protected function returnResource($instance, $data)
+    public function paginate(Collection $collection)
     {
+        $perPage = env('LIMIT_DATA_PER_PAGE', 10);
+        $page = LengthAwarePaginator::resolveCurrentPage();
+        $result = $collection->slice(($page - 1) * $perPage, $perPage)->values();
+        $paginated = new LengthAwarePaginator($result, $collection->count(), $perPage, $page, [
+            'path' => LengthAwarePaginator::resolveCurrentPath(),
+        ]);
+        $paginated->appends(request()->all());
 
-        if (request()->has('sort_by')) {
-            $attribute = $instance::originalAttribute(request()->sort_by);
-            $data = $data->sortBy->{$attribute};
-        }
-
-        foreach (request()->query() as $query => $value) {
-            $attribute = $instance::originalAttribute($query);
-            if (isset($attribute, $value)) {
-                $data = $data->where($attribute, $value);
-            }
-        }
-        return $instance::collection($data);
+        return $paginated;
     }
 }

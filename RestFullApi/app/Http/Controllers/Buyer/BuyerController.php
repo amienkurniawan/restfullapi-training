@@ -28,7 +28,9 @@ class BuyerController extends Controller
             $attribute = BuyerResource::originalAttribute(request()->sort_by);
             $buyer = $buyer->sortBy($attribute);
         }
-        return BuyerResource::collection($buyer)->values();
+        Log::debug($buyer);
+        $buyer = $this->paginate($buyer);
+        return BuyerResource::collection($buyer);
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
+use Illuminate\Contracts\Logging\Log;
 use Validator;
 
 class CategoryController extends Controller
@@ -18,17 +19,18 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
+
         foreach (request()->query() as $query => $value) {
             $attribute = CategoryResource::originalAttribute($query);
             if (isset($attribute, $value)) {
-                $categories = $categories->where($attribute, $value);
+                $categories = $categories->data->where($attribute, $value);
             }
         }
         if (request()->has('sort_by')) {
             $attribute = CategoryResource::originalAttribute(request()->sort_by);
-            $categories = $categories->sortBy($attribute);
+            $categories = $categories->sortBy($attribute)->values();
         }
-        return CategoryResource::collection($categories)->values();
+        return CategoryResource::collection($categories);
     }
 
     /**
