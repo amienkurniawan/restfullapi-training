@@ -27,6 +27,7 @@ class TransactionController extends Controller
             $attribute = TransactionResource::originalAttribute(request()->sort_by);
             $transactions = $transactions->sortBy->{$attribute};
         }
+        $transactions = self::paginate($transactions);
         return TransactionResource::collection($transactions)->values();
     }
 

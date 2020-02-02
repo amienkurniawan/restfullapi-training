@@ -27,6 +27,7 @@ class ProductController extends Controller
             $attribute = ProductResource::originalAttribute(request()->sort_by);
             $products = $products->sortBy->{$attribute};
         }
+        $products = self::paginate($products);
         return ProductResource::collection($products)->values();
     }
 

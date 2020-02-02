@@ -21,14 +21,9 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        Log::debug(request()->query());
         foreach (request()->query() as $query => $value) {
-            Log::debug(['masuk' => $query]);
             $attribute = UserResource::originalAttribute($query);
             if (isset($attribute, $value)) {
-                Log::debug(['Masuk ke sini']);
-                log::debug([$attribute, $value]);
-                Log::debug($users);
                 $users = $users->where($attribute, $value);
             }
         }
@@ -36,6 +31,7 @@ class UserController extends Controller
             $attribute = UserResource::originalAttribute(request()->sort_by);
             $users = $users->sortBy->{$attribute};
         }
+        $users = self::paginate($users);
         return UserResource::collection($users)->values();
     }
 

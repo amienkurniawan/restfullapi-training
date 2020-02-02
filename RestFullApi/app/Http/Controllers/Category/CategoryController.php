@@ -30,6 +30,7 @@ class CategoryController extends Controller
             $attribute = CategoryResource::originalAttribute(request()->sort_by);
             $categories = $categories->sortBy($attribute)->values();
         }
+        $categories = self::paginate($categories);
         return CategoryResource::collection($categories);
     }
 

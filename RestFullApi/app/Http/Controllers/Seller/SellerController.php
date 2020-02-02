@@ -28,6 +28,7 @@ class SellerController extends Controller
             $attribute = SellerResource::originalAttribute(request()->sort_by);
             $sellers = $sellers->sortBy->{$attribute};
         }
+        $sellers = self::paginate($sellers);
         return SellerResource::collection($sellers)->values();
     }
 
