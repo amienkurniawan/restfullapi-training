@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Response;
 use Validator;
@@ -54,6 +55,10 @@ trait ApiResponser
     {
         return $this->successResponse(['data' => $message], $code);
     }
+
+    /**
+     * function to retur pagination
+     */
     public function paginate(Collection $collection)
     {
         $rules = [
@@ -80,6 +85,17 @@ trait ApiResponser
         ]);
         $paginated->appends(request()->all());
 
-        return $paginated;
+        return self::cacheResponseData($paginated);
+    }
+
+    /**
+     * function to keep cache data response
+     */
+    protected function cacheResponseData($data)
+    {
+        $url = request()->url();
+        return Cache::remember($url, 30 / 60, function () use ($data) {
+            return $data;
+        });
     }
 }
