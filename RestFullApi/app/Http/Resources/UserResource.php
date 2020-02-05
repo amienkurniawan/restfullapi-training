@@ -24,7 +24,12 @@ class UserResource extends Resource
                 'creationDate' => (string) $this->created_at,
                 'lastChange' => (string) $this->updated_at,
                 'deletedDate' => isset($this->deleted_at) ? $this->deleted_at : null,
-
+                'links' => [
+                    [
+                        'rel' => 'users.show',
+                        'href' => route('users.show', $this->id)
+                    ],
+                ]
             ];
     }
 

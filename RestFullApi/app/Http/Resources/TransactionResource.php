@@ -22,6 +22,20 @@ class TransactionResource extends Resource
             'creationDate' => (string) $this->created_at,
             'lastChange' => (string) $this->updated_at,
             'deletedDate' => isset($this->deleted_at) ? $this->deleted_at : null,
+            'links' => [
+                [
+                    'rel' => 'transactions.show',
+                    'href' => route('transactions.show', $this->id)
+                ],
+                [
+                    'rel' => 'transactions.category.index',
+                    'href' => route('transactions.category.index', $this->id)
+                ],
+                [
+                    'rel' => 'transactions.sellers.index',
+                    'href' => route('transactions.seller.index', $this->id)
+                ],
+            ]
         ];
     }
     public static function originalAttribute($index)

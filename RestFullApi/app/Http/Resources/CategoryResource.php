@@ -21,6 +21,24 @@ class CategoryResource extends Resource
             'creationDate' => (string) $this->created_at,
             'lastChange' => (string) $this->updated_at,
             'deletedDate' => isset($this->deleted_at) ? $this->deleted_at : null,
+            'links' => [
+                [
+                    'rel' => 'categories.show',
+                    'href' => route('categories.show', $this->id)
+                ],
+                [
+                    'rel' => 'categories.product.index',
+                    'href' => route('categories.product.index', $this->id)
+                ],
+                [
+                    'rel' => 'categories.seller.index',
+                    'href' => route('categories.seller.index', $this->id)
+                ],
+                [
+                    'rel' => 'categories.transaction.index',
+                    'href' => route('categories.transaction.index', $this->id)
+                ],
+            ]
         ];
     }
     public static function originalAttribute($index)

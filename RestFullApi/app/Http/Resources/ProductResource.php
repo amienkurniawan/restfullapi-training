@@ -25,6 +25,24 @@ class ProductResource extends Resource
             'creationDate' => (string) $this->created_at,
             'lastChange' => (string) $this->updated_at,
             'deletedDate' => isset($this->deleted_at) ? $this->deleted_at : null,
+            'links' => [
+                [
+                    'rel' => 'product.show',
+                    'href' => route('product.show', $this->id)
+                ],
+                [
+                    'rel' => 'product.buyer.index',
+                    'href' => route('product.buyer.index', $this->id)
+                ],
+                [
+                    'rel' => 'product.category.index',
+                    'href' => route('product.category.index', $this->id)
+                ],
+                [
+                    'rel' => 'product.transaction.index',
+                    'href' => route('product.transaction.index', $this->id)
+                ],
+            ]
         ];
     }
     public static function originalAttribute($index)

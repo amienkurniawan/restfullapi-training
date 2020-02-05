@@ -22,6 +22,24 @@ class SellerResource extends Resource
             'creationDate' => (string) $this->created_at,
             'lastChange' => (string) $this->updated_at,
             'deletedDate' => isset($this->deleted_at) ? $this->deleted_at : null,
+            'links' => [
+                [
+                    'rel' => 'sellers.show',
+                    'href' => route('sellers.show', $this->id)
+                ],
+                [
+                    'rel' => 'sellers.buyer.index',
+                    'href' => route('sellers.buyer.index', $this->id)
+                ],
+                [
+                    'rel' => 'sellers.category.index',
+                    'href' => route('sellers.category.index', $this->id)
+                ],
+                [
+                    'rel' => 'sellers.products.index',
+                    'href' => route('sellers.products.index', $this->id)
+                ],
+            ]
         ];
     }
     public static function originalAttribute($index)
