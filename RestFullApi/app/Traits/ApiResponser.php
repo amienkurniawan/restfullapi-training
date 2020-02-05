@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Mail\UserCreated;
+use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\Resource;
@@ -94,7 +95,15 @@ trait ApiResponser
     protected function cacheResponseData($data)
     {
         $url = request()->url();
-        return Cache::remember($url, 30 / 60, function () use ($data) {
+        $queryParams = request()->query();
+
+        ksort($queryParams);
+
+        $queryString = http_build_query($queryParams);
+
+        $fullUrl = "{$url}?{$queryString}";
+
+        return Cache::remember($fullUrl, 30 / 60, function () use ($data) {
             return $data;
         });
     }
