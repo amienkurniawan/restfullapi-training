@@ -27,7 +27,7 @@ class ProductResource extends Resource
             'deletedDate' => isset($this->deleted_at) ? $this->deleted_at : null,
             'links' => [
                 [
-                    'rel' => 'product.show',
+                    'rel' => 'self',
                     'href' => route('product.show', $this->id)
                 ],
                 [
@@ -41,6 +41,10 @@ class ProductResource extends Resource
                 [
                     'rel' => 'product.transaction.index',
                     'href' => route('product.transaction.index', $this->id)
+                ],
+                [
+                    'rel' => 'sellers.show',
+                    'href' => route('sellers.show', $this->seller_id)
                 ],
             ]
         ];

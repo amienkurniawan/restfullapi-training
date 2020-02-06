@@ -35,6 +35,14 @@ class TransactionResource extends Resource
                     'rel' => 'transactions.sellers.index',
                     'href' => route('transactions.seller.index', $this->id)
                 ],
+                [
+                    'rel' => 'product.show',
+                    'href' => route('product.show', $this->product_id)
+                ],
+                [
+                    'rel' => 'buyers.show',
+                    'href' => route('buyers.show', $this->buyer_id)
+                ],
             ]
         ];
     }
