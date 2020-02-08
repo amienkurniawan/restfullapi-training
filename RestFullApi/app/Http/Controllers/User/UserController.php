@@ -13,6 +13,11 @@ use Validator;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('transformInput');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -70,7 +75,7 @@ class UserController extends Controller
         $data['verification_token'] = User::generateVerificationCode();
         $data['admin'] = $request->has('admin') && ($request->admin === true || $request->admin === 1) ? User::ADMIN_USER : User::REGULAR_USER;
         $user = User::create($data);
-        return response()->json(['data' => $user], 201);
+        return $this->showOne($user, 201);
     }
 
     /**
@@ -139,7 +144,7 @@ class UserController extends Controller
         }
 
         $user->save();
-        return response()->json(['data' => $user], 200);
+        return $this->showOne($user, 200);
     }
 
     /**
