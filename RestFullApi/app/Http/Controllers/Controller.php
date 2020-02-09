@@ -11,4 +11,7 @@ use App\Traits\ApiResponser;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests, ApiResponser;
+    public function __construct()
+    {
+    }
 }

@@ -16,7 +16,7 @@ class UserController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('transformInput');
+        $this->middleware('transformInput:' . UserResource::class)->only(['store', 'update']);
     }
     /**
      * Display a listing of the resource.

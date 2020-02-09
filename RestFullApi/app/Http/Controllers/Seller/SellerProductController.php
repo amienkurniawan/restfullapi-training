@@ -5,12 +5,18 @@ namespace App\Http\Controllers\Seller;
 use App\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SellerResource;
 use App\Product;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SellerProductController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('transformInput:' . SellerResource::class)->only(['store', 'update']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +24,10 @@ class SellerProductController extends Controller
      */
     public function index(Seller $seller)
     {
+
         $products = $seller->products;
-        return $this->showAll($products);
+        $products = self::paginate($products);
+        return SellerResource::collection($products)->values();
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Log;
 
 class TransformInput
 {
@@ -13,8 +14,14 @@ class TransformInput
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $transform)
     {
+
+        $transformInput = [];
+        foreach ($request->request->all() as $input => $value) {
+            $transformInput[$transform::originalAttribute($input)] = $value;
+        }
+        $request->replace($transformInput);
         return $next($request);
     }
 }
