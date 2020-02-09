@@ -62,11 +62,7 @@ class UserController extends Controller
             'min' => 'The :attribute field must have a minimum 6 length'
         ];
 
-        $validator = Validator::make($request->all(), $rules, $messages);
-
-        if ($validator->fails()) {
-            return $this->errorResponse($validator->errors(),  403);
-        }
+        $this->validate($request, $rules, $messages);
 
         // $this->validate($request, $rules);
         $data = $request->all();
@@ -112,11 +108,7 @@ class UserController extends Controller
             // 'in' => 'The :attribute must be one of the following types: ' . User::ADMIN_USER . ' : ' . User::REGULAR_USER,
         ];
 
-        $validator = Validator::make($request->all(), $rules, $messages);
-
-        if ($validator->fails()) {
-            return $this->errorResponse($validator->errors(),  403);
-        }
+        $this->validate($request, $rules, $messages);
 
         if ($request->has('name')) {
             $user->name = $request->name;

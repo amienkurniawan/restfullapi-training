@@ -56,11 +56,7 @@ class CategoryController extends Controller
             'required' => 'The :attribute field is required.'
         ];
 
-        $validator = Validator::make($request->all(), $rules, $messages);
-
-        if ($validator->fails()) {
-            return $this->errorResponse($validator->errors(),  403);
-        }
+        $this->validate($request, $rules, $messages);
 
         $newCategory = Category::create($request->all());
 

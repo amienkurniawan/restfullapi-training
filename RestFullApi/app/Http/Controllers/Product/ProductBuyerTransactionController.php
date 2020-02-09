@@ -31,12 +31,8 @@ class ProductBuyerTransactionController extends Controller
             'min' => 'The :attribute field must minimum 1.'
         ];
 
-        $validator = Validator::make($request->all(), $rules, $messages);
+        $this->validate($request, $rules, $messages);
 
-
-        if ($validator->fails()) {
-            return $this->errorResponse($validator->errors(),  403);
-        }
 
         if ($buyer->id == $product->seller_id) {
             return $this->errorResponse('The Buyer must be diffrent from seller', 409);
