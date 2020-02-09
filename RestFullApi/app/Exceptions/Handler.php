@@ -123,6 +123,9 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
+        if ($this->isWebRequest($request)) {
+            return redirect()->guest('login');
+        }
         return $this->errorResponse('Unauthenticated.', 401);
     }
 
@@ -135,6 +138,19 @@ class Handler extends ExceptionHandler
     protected function convertValidationExceptionToResponse(ValidationException $e, $request)
     {
         $errors = $e->validator->errors()->getMessages();
+        if ($this->isWebRequest($request)) {
+            return $request->ajax() ? response()->json($errors, 422) : redirect()->back()->withInput($request->input())->withErrors($errors);
+        }
         return $this->errorResponse($errors, 422);
+    }
+
+    /**
+     * function to check is request from web or api
+     * 
+     * @param \Illumninate\Http\Request $request
+     */
+    private function isWebRequest($request)
+    {
+        return $request->acceptsHtml() && collect($request->route()->middleware())->contains('web');
     }
 }
