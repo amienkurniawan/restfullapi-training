@@ -47,4 +47,18 @@ class UserResource extends Resource
         ];
         return isset($attribute[$index]) ? $attribute[$index] : null;
     }
+    public static function transformedAttribute($index)
+    {
+        $attribute = [
+            'id' => 'identifier',
+            'name' => 'name',
+            'email' => 'email',
+            'verified' => 'isVerified',
+            'admin' => 'isAdmin',
+            'created_at' => 'creationDate',
+            'updated_at' => 'lastChange',
+            'deleted_at' => 'deletedDate',
+        ];
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
 }
