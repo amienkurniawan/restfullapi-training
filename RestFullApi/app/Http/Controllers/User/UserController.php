@@ -17,6 +17,7 @@ class UserController extends Controller
     {
         parent::__construct();
         $this->middleware('transformInput:' . UserResource::class)->only(['store', 'update']);
+        $this->middleware('client.credentials')->only(['store', 'resend']);
     }
     /**
      * Display a listing of the resource.

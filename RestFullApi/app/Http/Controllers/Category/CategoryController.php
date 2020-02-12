@@ -15,6 +15,7 @@ class CategoryController extends Controller
     {
         parent::__construct();
         $this->middleware('transformInput:' . CategoryResource::class)->only(['store', 'update']);
+        $this->middleware('client.credentials')->only(['index', 'show']);
     }
     /**
      * Display a listing of the resource.

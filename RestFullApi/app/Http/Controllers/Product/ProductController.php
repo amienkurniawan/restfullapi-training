@@ -9,7 +9,10 @@ use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('client.credentials')->only(['index', 'show']);
+    }
     /**
      * Display a listing of the resource.
      *

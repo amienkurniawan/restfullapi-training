@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 
 class CategoryProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('client.credentials')->only(['index']);
+    }
     /**
      * Display a listing of the resource.
      *
