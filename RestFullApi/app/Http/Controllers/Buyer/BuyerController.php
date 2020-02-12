@@ -10,6 +10,10 @@ use App\Http\Resources\BuyerResource;
 
 class BuyerController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     /**
      * Display a listing of the resource.
      *

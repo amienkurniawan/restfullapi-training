@@ -6,28 +6,29 @@ use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoryTransactionController extends Controller
+class CategoryBuyerController extends Controller
 {
     public function __construct()
     {
         parent::__construct();
     }
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * display a listing resources
+     * 
+     * @return \Illumninate\Http\Response
      */
     public function index(Category $category)
     {
-        $transaction = $category->products()
+        $buyers = $category->products()
             ->whereHas('transactions')
-            ->with('transactions')
+            ->with('transactions.buyer')
             ->get()
             ->pluck('transactions')
             ->collapse()
             ->pluck('buyer')
             ->unique('id')
             ->values();
-        return $this->showAll($transaction);
+        return $this->showAll($buyers);
     }
 }

@@ -12,7 +12,10 @@ use Validator;
 
 class ProductBuyerTransactionController extends Controller
 {
-
+    public function __construct()
+    {
+        parent::__construct();
+    }
     /**
      * Store a newly created resource in storage.
      *

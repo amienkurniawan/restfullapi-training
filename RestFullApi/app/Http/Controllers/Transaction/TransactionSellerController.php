@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TransactionSellerController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
     /**
      * Display a listing of the resource.
      *
