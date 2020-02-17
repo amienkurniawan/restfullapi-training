@@ -4,6 +4,7 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Laravel\Passport\Http\Middleware\CheckClientCredentials;
+use Laravel\Passport\Http\Middleware\CheckScopes;
 
 class Kernel extends HttpKernel
 {
@@ -62,5 +63,7 @@ class Kernel extends HttpKernel
         'signature' => \App\Http\Middleware\SignatureMiddleware::class,
         'transformInput' => \App\Http\Middleware\TransformInput::class,
         'client.credentials' => CheckClientCredentials::class,
+        'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
+        'scopes' => CheckScopes::class
     ];
 }
