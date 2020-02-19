@@ -261,12 +261,10 @@ export default {
      * Get all of the OAuth clients for the user.
      */
     getClients() {
-      axios
-        .get("/Backend/restfullapi/RestFullApi/public/oauth/clients")
-        .then(response => {
-          console.log("response get oauth/client ", response.data);
-          this.clients = response.data;
-        });
+      axios.get("/oauth/clients").then(response => {
+        console.log("response get oauth/client ", response.data);
+        this.clients = response.data;
+      });
     },
 
     /**
@@ -340,14 +338,10 @@ export default {
      * Destroy the given client.
      */
     destroy(client) {
-      axios
-        .delete(
-          "/Backend/restfullapi/RestFullApi/public/oauth/clients/" + client.id
-        )
-        .then(response => {
-          console.log("response delete oauth/clients ", response);
-          this.getClients();
-        });
+      axios.delete("/oauth/clients/" + client.id).then(response => {
+        console.log("response delete oauth/clients ", response);
+        this.getClients();
+      });
     }
   }
 };

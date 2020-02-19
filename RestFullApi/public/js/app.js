@@ -45283,7 +45283,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     getTokens: function getTokens() {
       var _this = this;
 
-      axios.get("/Backend/restfullapi/RestFullApi/public/oauth/personal-access-tokens").then(function (response) {
+      axios.get("/oauth/personal-access-tokens").then(function (response) {
         console.log("response get oauth/persona-access-tokens ", response);
         _this.tokens = response.data;
       });
@@ -45296,7 +45296,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     getScopes: function getScopes() {
       var _this2 = this;
 
-      axios.get("/Backend/restfullapi/RestFullApi/public/oauth/scopes").then(function (response) {
+      axios.get("/oauth/scopes").then(function (response) {
         console.log("response get oauth/scopes ", response);
         _this2.scopes = response.data;
       });
@@ -45321,7 +45321,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
       this.form.errors = [];
 
-      axios.post("/Backend/restfullapi/RestFullApi/public/oauth/personal-access-tokens", this.form).then(function (response) {
+      axios.post("/oauth/personal-access-tokens", this.form).then(function (response) {
         console.log("response post oauth/personal-access-tokens/ ", response);
         _this3.form.name = "";
         _this3.form.scopes = [];
@@ -45380,7 +45380,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     revoke: function revoke(token) {
       var _this4 = this;
 
-      axios.delete("/Backend/restfullapi/RestFullApi/public/oauth/personal-access-tokens/" + token.id).then(function (response) {
+      axios.delete("/oauth/personal-access-tokens/" + token.id).then(function (response) {
         console.log("response delete oauth/personal-access-tokens/ ", response);
         _this4.getTokens();
       });
@@ -46097,7 +46097,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     getClients: function getClients() {
       var _this = this;
 
-      axios.get("/Backend/restfullapi/RestFullApi/public/oauth/clients").then(function (response) {
+      axios.get("/oauth/clients").then(function (response) {
         console.log("response get oauth/client ", response.data);
         _this.clients = response.data;
       });
@@ -46172,7 +46172,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     destroy: function destroy(client) {
       var _this3 = this;
 
-      axios.delete("/Backend/restfullapi/RestFullApi/public/oauth/clients/" + client.id).then(function (response) {
+      axios.delete("/oauth/clients/" + client.id).then(function (response) {
         console.log("response delete oauth/clients ", response);
         _this3.getClients();
       });
@@ -46888,7 +46888,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getTokens: function getTokens() {
       var _this = this;
 
-      axios.get("/Backend/restfullapi/RestFullApi/public/oauth/tokens").then(function (response) {
+      axios.get("/oauth/tokens").then(function (response) {
         console.log("response get oauth/tokens ", response.data);
         _this.tokens = response.data;
       });
@@ -46901,7 +46901,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     revoke: function revoke(token) {
       var _this2 = this;
 
-      axios.delete("/Backend/restfullapi/RestFullApi/public/oauth/tokens/" + token.id).then(function (response) {
+      axios.delete("/oauth/tokens/" + token.id).then(function (response) {
         console.log("response delete oauth/tokens ", response.data);
         _this2.getTokens();
       });

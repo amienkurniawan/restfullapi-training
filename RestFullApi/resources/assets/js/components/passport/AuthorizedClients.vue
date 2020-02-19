@@ -85,26 +85,20 @@ export default {
      * Get all of the authorized tokens for the user.
      */
     getTokens() {
-      axios
-        .get("/Backend/restfullapi/RestFullApi/public/oauth/tokens")
-        .then(response => {
-          console.log("response get oauth/tokens ", response.data);
-          this.tokens = response.data;
-        });
+      axios.get("/oauth/tokens").then(response => {
+        console.log("response get oauth/tokens ", response.data);
+        this.tokens = response.data;
+      });
     },
 
     /**
      * Revoke the given token.
      */
     revoke(token) {
-      axios
-        .delete(
-          "/Backend/restfullapi/RestFullApi/public/oauth/tokens/" + token.id
-        )
-        .then(response => {
-          console.log("response delete oauth/tokens ", response.data);
-          this.getTokens();
-        });
+      axios.delete("/oauth/tokens/" + token.id).then(response => {
+        console.log("response delete oauth/tokens ", response.data);
+        this.getTokens();
+      });
     }
   }
 };

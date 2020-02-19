@@ -203,26 +203,20 @@ export default {
      * Get all of the personal access tokens for the user.
      */
     getTokens() {
-      axios
-        .get(
-          "/Backend/restfullapi/RestFullApi/public/oauth/personal-access-tokens"
-        )
-        .then(response => {
-          console.log("response get oauth/persona-access-tokens ", response);
-          this.tokens = response.data;
-        });
+      axios.get("/oauth/personal-access-tokens").then(response => {
+        console.log("response get oauth/persona-access-tokens ", response);
+        this.tokens = response.data;
+      });
     },
 
     /**
      * Get all of the available scopes.
      */
     getScopes() {
-      axios
-        .get("/Backend/restfullapi/RestFullApi/public/oauth/scopes")
-        .then(response => {
-          console.log("response get oauth/scopes ", response);
-          this.scopes = response.data;
-        });
+      axios.get("/oauth/scopes").then(response => {
+        console.log("response get oauth/scopes ", response);
+        this.scopes = response.data;
+      });
     },
 
     /**
@@ -241,10 +235,7 @@ export default {
       this.form.errors = [];
 
       axios
-        .post(
-          "/Backend/restfullapi/RestFullApi/public/oauth/personal-access-tokens",
-          this.form
-        )
+        .post("/oauth/personal-access-tokens", this.form)
         .then(response => {
           console.log("response post oauth/personal-access-tokens/ ", response);
           this.form.name = "";
@@ -298,10 +289,7 @@ export default {
      */
     revoke(token) {
       axios
-        .delete(
-          "/Backend/restfullapi/RestFullApi/public/oauth/personal-access-tokens/" +
-            token.id
-        )
+        .delete("/oauth/personal-access-tokens/" + token.id)
         .then(response => {
           console.log(
             "response delete oauth/personal-access-tokens/ ",
