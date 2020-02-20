@@ -18,6 +18,7 @@ class UserController extends Controller
         $this->middleware('transformInput:' . UserResource::class)->only(['store', 'update']);
         $this->middleware('client.credentials')->only(['store', 'resend']);
         $this->middleware('auth:api')->except(['store', 'resend', 'verify']);
+        $this->middleware('scope:manage-account')->only(['show', 'update']);
     }
     /**
      * Display a listing of the resource.
