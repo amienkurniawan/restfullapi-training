@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
         Passport::enableImplicitGrant();
         Passport::tokensCan([
             'purchase-product' => 'Create a new transaction for a specific product',
-            'manage-product' => 'create, read, update, and delete, product (CRUD)',
+            'manage-products' => 'create, read, update, and delete, product (CRUD)',
             'manage-account' => 'Read your account data, id, name, email, if verified, and if admin (cannot read password), modify your account data (email, and password), cannot delete your account',
             'read-general' => 'Read general information like purchasing categories, purchased products, selling products, selling categories, your transactions (purchases and sales)'
         ]);

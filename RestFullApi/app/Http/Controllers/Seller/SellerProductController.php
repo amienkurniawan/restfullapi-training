@@ -16,6 +16,7 @@ class SellerProductController extends Controller
     {
         parent::__construct();
         $this->middleware('transformInput:' . SellerResource::class)->only(['store', 'update']);
+        $this->middleware('scope:manage-products');
     }
     /**
      * Display a listing of the resource.

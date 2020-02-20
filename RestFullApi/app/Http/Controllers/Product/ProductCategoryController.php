@@ -13,6 +13,7 @@ class ProductCategoryController extends Controller
     {
         $this->middleware('client.credentials')->only(['index']);
         $this->middleware('auth:api')->except(['index']);
+        $this->middleware('scope:manage-products')->except(['index']);
     }
     /**
      * Display a listing of the resource.
