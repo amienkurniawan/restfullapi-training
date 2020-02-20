@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SellerResource;
 use App\Product;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -16,7 +18,7 @@ class SellerProductController extends Controller
     {
         parent::__construct();
         $this->middleware('transformInput:' . SellerResource::class)->only(['store', 'update']);
-        $this->middleware('scope:manage-products');
+        $this->middleware('scope:manage-products')->except('index');
     }
     /**
      * Display a listing of the resource.
@@ -25,10 +27,13 @@ class SellerProductController extends Controller
      */
     public function index(Seller $seller)
     {
-
-        $products = $seller->products;
-        $products = self::paginate($products);
-        return SellerResource::collection($products)->values();
+        if (request()->user()->tokenCan('read-general') || request()->user()->tokenCan('manage-products')) {
+            Log::debug([request()->user()->tokenCan('read-general')]);
+            $products = $seller->products;
+            $products = self::paginate($products);
+            return SellerResource::collection($products)->values();
+        }
+        throw new AuthorizationException("Invalid Scope(s)");
     }
 
     /**
