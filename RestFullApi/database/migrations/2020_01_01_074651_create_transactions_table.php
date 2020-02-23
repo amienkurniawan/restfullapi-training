@@ -17,12 +17,12 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->integer('quantity')->unsigned();
             $table->integer('buyer_id')->unsigned();
-            $table->integer('product_id')->unsigned();
+            $table->integer('products_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('buyer_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('products_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
