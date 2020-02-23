@@ -6,6 +6,7 @@ use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
 
 class ProductCategoryController extends Controller
 {
@@ -14,6 +15,8 @@ class ProductCategoryController extends Controller
         $this->middleware('client.credentials')->only(['index']);
         $this->middleware('auth:api')->except(['index']);
         $this->middleware('scope:manage-products')->except(['index']);
+        $this->middleware('can:add-category,product')->only('update');
+        $this->middleware('can:delete-category,product')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +26,7 @@ class ProductCategoryController extends Controller
     public function index(Product $product)
     {
         $categories = $product->categories()->get();
-        return $this->showAll($categories);
+        return CategoryResource::collection($categories);
     }
 
     /**

@@ -32,7 +32,6 @@ class SellerProductController extends Controller
     public function index(Seller $seller)
     {
         if (request()->user()->tokenCan('read-general') || request()->user()->tokenCan('manage-products')) {
-            Log::debug([request()->user()->tokenCan('read-general')]);
             $products = $seller->products;
             $products = self::paginate($products);
             return SellerResource::collection($products)->values();
