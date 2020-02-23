@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Buyer;
 use App\Buyer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TransactionResource;
 
 class BuyerTransactionController extends Controller
 {
@@ -22,6 +23,6 @@ class BuyerTransactionController extends Controller
     public function index(Buyer $buyer)
     {
         $transaction = $buyer->transactions;
-        return $this->showAll($transaction);
+        return TransactionResource::collection($transaction);
     }
 }

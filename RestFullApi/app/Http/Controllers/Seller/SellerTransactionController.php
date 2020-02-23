@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Seller;
 use App\Seller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TransactionResource;
 
 class SellerTransactionController extends Controller
 {
@@ -27,6 +28,6 @@ class SellerTransactionController extends Controller
             ->get()
             ->pluck('transactions')
             ->collapse();
-        return $this->showAll($transactions);
+        return TransactionResource::collection($transactions);
     }
 }
