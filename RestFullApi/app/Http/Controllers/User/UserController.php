@@ -19,6 +19,9 @@ class UserController extends Controller
         $this->middleware('client.credentials')->only(['store', 'resend']);
         $this->middleware('auth:api')->except(['store', 'resend', 'verify']);
         $this->middleware('scope:manage-account')->only(['show', 'update']);
+        $this->middleware('can:view,user')->only('show');
+        $this->middleware('can:update,user')->only('update');
+        $this->middleware('can:delete,user')->only('destroy');
     }
     /**
      * Display a listing of the resource.
@@ -82,9 +85,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        return new UserResource(User::findOrFail($id));
+        // $user = User::findOrFail($id);
+        return new UserResource($user);
     }
 
     /**
@@ -143,15 +147,18 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     * ! for this method $users return null so this wouldn't work if you using UserPolicy
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $users)
     {
-        $users = User::findOrFail($id);
+        // $users = User::findOrFail($id);
         $users->delete();
+
+        // Log::debug(['users' => $users->id]);
         return response()->json(['data' => $users], 200);
+        // return $this->showOne($users);
     }
 
     /**
