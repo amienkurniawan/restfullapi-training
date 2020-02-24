@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
+use App\Traits\AdminAccess;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Log;
 
 class UserPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, AdminAccess;
 
     /**
      * Determine whether the user can view the user.
