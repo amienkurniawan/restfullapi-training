@@ -19,6 +19,7 @@ class ProductTransactionController extends Controller
      */
     public function index(Product $product)
     {
+        $this->adminAuthorized();
         $transaction = $product->transactions;
         return $this->showAll($transaction);
     }

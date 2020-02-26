@@ -20,6 +20,7 @@ class CategoryBuyerController extends Controller
      */
     public function index(Category $category)
     {
+        $this->adminAuthorized();
         $buyers = $category->products()
             ->whereHas('transactions')
             ->with('transactions.buyer')

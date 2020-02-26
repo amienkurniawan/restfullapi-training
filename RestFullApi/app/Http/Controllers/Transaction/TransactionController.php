@@ -22,6 +22,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
+        $this->adminAuthorized();
         $transactions = Transaction::all();
         foreach (request()->query() as $query => $value) {
             $attribute = TransactionResource::originalAttribute($query);

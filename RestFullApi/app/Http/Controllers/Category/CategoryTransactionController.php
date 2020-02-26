@@ -19,6 +19,7 @@ class CategoryTransactionController extends Controller
      */
     public function index(Category $category)
     {
+        $this->adminAuthorized();
         $transaction = $category->products()
             ->whereHas('transactions')
             ->with('transactions')

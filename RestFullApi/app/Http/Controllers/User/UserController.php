@@ -30,6 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->adminAuthorized();
         $users = User::all();
         foreach (request()->query() as $query => $value) {
             $attribute = UserResource::originalAttribute($query);
@@ -100,6 +101,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->adminAuthorized();
         $rules = [
             'email' => 'email|unique:users,email,' . $user->id,
             'password' => 'min:6|confirmed',

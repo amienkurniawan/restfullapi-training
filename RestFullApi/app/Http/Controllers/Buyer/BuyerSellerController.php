@@ -19,6 +19,7 @@ class BuyerSellerController extends Controller
      */
     public function index(Buyer $buyer)
     {
+        $this->adminAuthorized();
         $seller = $buyer->transactions()->with('products.seller')
             ->get()
             ->pluck('products.seller')

@@ -19,6 +19,7 @@ class ProductBuyerController extends Controller
      */
     public function index(Product $product)
     {
+        $this->adminAuthorized();
         $buyer = $product->transactions()
             ->with('buyer')
             ->get()

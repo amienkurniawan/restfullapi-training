@@ -48,6 +48,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->adminAuthorized();
         $rules = [
             'name' => 'required',
             'description' => 'required',
@@ -84,6 +85,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $this->adminAuthorized();
         $rules = [
             'name' => 'required',
             'description' => 'required',
@@ -115,6 +117,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $this->adminAuthorized();
         $category->delete();
         return $this->showOne($category);
     }

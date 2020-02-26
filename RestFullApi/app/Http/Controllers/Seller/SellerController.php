@@ -23,6 +23,7 @@ class SellerController extends Controller
      */
     public function index()
     {
+        $this->adminAuthorized();
         $sellers = Seller::with('products')->get();
         foreach (request()->query() as $query => $value) {
             $attribute = SellerResource::originalAttribute($query);

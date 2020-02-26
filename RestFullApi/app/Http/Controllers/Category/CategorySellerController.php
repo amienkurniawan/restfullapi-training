@@ -19,6 +19,7 @@ class CategorySellerController extends Controller
      */
     public function index(Category $category)
     {
+        $this->adminAuthorized();
         $seller = $category->products()->with('seller')
             ->get()
             ->pluck('seller')
