@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BuyerResource;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Gate;
 
 class BuyerController extends Controller
 {
@@ -23,6 +25,7 @@ class BuyerController extends Controller
      */
     public function index()
     {
+        $this->adminAuthorized();
         $buyer = Buyer::with('transactions')->get();
         foreach (request()->query() as $query => $value) {
             $attribute = BuyerResource::originalAttribute($query);
