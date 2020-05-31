@@ -1,1 +1,1 @@
-ini dari gitlab.amien.local
+hahahah udah bisa push mirror nih
