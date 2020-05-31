@@ -1,1 +1,1 @@
-test
+ini dari gitlab.amien.local
